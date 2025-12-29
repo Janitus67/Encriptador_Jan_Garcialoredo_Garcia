@@ -2,10 +2,11 @@
 
 #include <iostream>
 #include "Bienvenida.h"
+#include "Archivo.h"
 
 // --- FUNCIÓNES ---
 
-int Bienvenida(int seleccion)
+int Bienvenida(char seleccion)
 {
 	do
 	{
@@ -23,7 +24,17 @@ int Bienvenida(int seleccion)
 
 		if ((seleccion >= 1) && (seleccion <= 3))
 		{
-
+			switch (seleccion)
+			{
+			case 1:
+				std::cout << "\nSe abrira el archivo...";
+				abrirFichero(seleccion);
+			case 2:
+				std::cout << "\nSe abrira el archivo borrando el contenido de la conversa...";
+				abrirFichero(seleccion);
+			case 3:
+				std::cout << "Se va a cerrar el programa...";
+			}
 		}
 		else
 		{

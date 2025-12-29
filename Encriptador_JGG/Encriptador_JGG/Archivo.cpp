@@ -9,16 +9,15 @@
 
 // --- FUNCIÓNES ---
 
-int abrirFichero()
+int abrirFichero(char seleccion)
 {
-	std::ifstream documentoEncriptado("encryption.txt");
-	if (documentoEncriptado.is_open())
+	if (seleccion == 1)
 	{
-		return 0;
+
 	}
-	else
+	else if (seleccion == 2)
 	{
-		return 0;
+
 	}
 }
 

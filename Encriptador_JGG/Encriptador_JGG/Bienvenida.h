@@ -2,4 +2,4 @@
 // --- DECLARACIÓNES ---
 
 #pragma once
-int Bienvenida(int seleccion);
+int Bienvenida(char seleccion);

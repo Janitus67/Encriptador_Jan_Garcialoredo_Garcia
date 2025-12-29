@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-int abrirFichero();
+int abrirFichero(char seleccion);
 int intentarRecuperarDatos();
 int leerLinea();
 int escribirLinea();
