@@ -123,11 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archivo.cpp" />
+    <ClCompile Include="Bienvenida.cpp" />
     <ClCompile Include="Encriptador.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archivo.h" />
+    <ClInclude Include="Bienvenida.h" />
     <ClInclude Include="Encriptador.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="encriptado.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
