@@ -19,6 +19,7 @@ int abrirFichero(char seleccion)
 	{
 
 	}
+	return 0;
 }
 
 int intentarRecuperarDatos()

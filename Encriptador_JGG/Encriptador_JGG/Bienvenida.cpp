@@ -38,8 +38,9 @@ int Bienvenida(char seleccion)
 		}
 		else
 		{
+			system("cls");
 			std::cout << "\nLa opcion que ha seleccionado no es valida, por favor seleccione una que este dentro del rango.";
 		}
-	} while (seleccion < 1 && seleccion > 3);
+	}while (seleccion < 1 || seleccion > 3);
 	return 0;
 }
