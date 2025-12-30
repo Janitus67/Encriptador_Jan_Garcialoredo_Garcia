@@ -14,11 +14,11 @@ int Bienvenida(short seleccion)
 
 		// --- MENU ---
 
-		std::cout << "# - - - - - - - - - - - - - - - - - - - - #" << std::endl;
-		std::cout << "| 1. Entrar en el archivo.                |" << std::endl;
-		std::cout << "| 2. Entrar al archivo borrando conversa  |" << std::endl;
-		std::cout << "| 3. Salir del programa.                  |" << std::endl;
-		std::cout << "# - - - - - - - - - - - - - - - - - - - - #" << std::endl;
+		std::cout << "# - - - - - - - - - - - - - - - - - - - - - - #" << std::endl;
+		std::cout << "| 1. Entrar en el archivo.                    |" << std::endl;
+		std::cout << "| 2. Entrar al archivo borrando conversacion  |" << std::endl;
+		std::cout << "| 3. Salir del programa.                      |" << std::endl;
+		std::cout << "# - - - - - - - - - - - - - - - - - - - - - - #" << std::endl;
 		std::cout << "Opcion: ";
 		std::cin >> seleccion;
 
@@ -39,7 +39,7 @@ int Bienvenida(short seleccion)
 				}
 				break;
 			case 2:
-				std::cout << "\nSe abrira el archivo borrando el contenido de la conversa...\n";
+				std::cout << "\nSe abrira el archivo borrando el contenido de la conversacion...\n";
 				abrirFichero(seleccion);
 				break;
 			case 3:
