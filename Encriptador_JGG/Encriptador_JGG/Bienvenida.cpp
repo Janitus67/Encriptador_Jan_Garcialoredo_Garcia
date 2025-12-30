@@ -6,7 +6,7 @@
 
 // --- FUNCIÓNES ---
 
-int Bienvenida(char seleccion)
+int Bienvenida(short seleccion)
 {
 	do
 	{
@@ -27,13 +27,24 @@ int Bienvenida(char seleccion)
 			switch (seleccion)
 			{
 			case 1:
-				std::cout << "\nSe abrira el archivo...";
-				abrirFichero(seleccion);
+				if (existeArchivo() == true)
+				{
+					std::cout << "\nSe abrira el archivo...\n";
+					abrirFichero(seleccion);
+				}
+				else
+				{
+					std::cout << "\nEl archivo no se ha abierto porque no existe, se abrira uno nuevo...\n";
+					abrirFichero(2);
+				}
+				break;
 			case 2:
-				std::cout << "\nSe abrira el archivo borrando el contenido de la conversa...";
+				std::cout << "\nSe abrira el archivo borrando el contenido de la conversa...\n";
 				abrirFichero(seleccion);
+				break;
 			case 3:
-				std::cout << "Se va a cerrar el programa...";
+				std::cout << "\nSe va a cerrar el programa...\n";
+				break;
 			}
 		}
 		else

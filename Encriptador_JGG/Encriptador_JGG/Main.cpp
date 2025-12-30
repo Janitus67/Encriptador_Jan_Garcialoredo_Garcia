@@ -12,6 +12,6 @@
 
 int main()
 {
-	char seleccion = VALOR_PREDETERMINADO;
+	short seleccion = VALOR_PREDETERMINADO;
 	Bienvenida(seleccion);
 }

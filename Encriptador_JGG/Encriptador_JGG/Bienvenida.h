@@ -2,4 +2,5 @@
 // --- DECLARACIÓNES ---
 
 #pragma once
-int Bienvenida(char seleccion);
+int Bienvenida(short seleccion);
+bool existeArchivo();
