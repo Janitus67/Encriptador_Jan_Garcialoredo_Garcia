@@ -5,8 +5,10 @@
 #include <string>
 #include "Bienvenida.h"
 
-void abrirFichero(char seleccion);
-void recuperarDatos();
+#define PREFIJO
+
+void abrirArchivo(char seleccion, std::vector<std::string> & historial);
+void recuperarDatos(std::vector<std::string> & historial);
 void leerLinea();
 void escribirLinea();
 void guardarDatos();

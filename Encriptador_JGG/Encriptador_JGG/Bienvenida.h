@@ -2,5 +2,7 @@
 // --- DECLARACIÓNES ---
 
 #pragma once
-int Bienvenida(short seleccion);
+#include <vector>
+#include <string>
+int Bienvenida(short seleccion, std::vector<std::string> & historial);
 bool existeArchivo();

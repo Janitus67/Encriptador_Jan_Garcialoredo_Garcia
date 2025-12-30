@@ -2,14 +2,16 @@
 
 #include <fstream>
 #include <iostream>
-
+#include <vector>
 #include <string>
+
 #include "Archivo.h"
 #include "Encriptador.h"
 
 // --- FUNCIÓNES ---
 
-bool existeArchivo() {
+bool existeArchivo()
+{
 	std::ifstream archivo("encriptado.txt");
 	return archivo.is_open();
 }
@@ -20,9 +22,9 @@ void borrarArchivo()
 
 	if (archivo.is_open())
 	{
-		archivo << "--- Codigo Cifrado -------\n" << std::endl;
-		archivo << "--- Historial Mensajes ---\n" << std::endl;
-		archivo << "--- Nuevos Mensajes ------\n" << std::endl;
+		archivo << "--- Numero Cifrado -------------------\n" << std::endl;
+		archivo << "--- Historial Mensajes Encriptados ---\n" << std::endl;
+		archivo << "--- Nuevos Mensajes ------------------\n" << std::endl;
 		archivo.close();
 	}
 	else
@@ -31,52 +33,80 @@ void borrarArchivo()
 	}
 }
 
-void abrirFichero(char seleccion)
+void abrirArchivo(char seleccion, std::vector<std::string> & historial)
 {
 	if (seleccion == 1)
 	{
-		if (existeArchivo() == true)
+		if (existeArchivo())
 		{
-			for (char decision = VALOR_PREDETERMINADO; (decision != 'M') || (decision != 'm') || (decision != 'B') || (decision != 'b') || (decision != 'V') || (decision != 'v');)
+			recuperarDatos(historial);
+		}
+
+		if (!historial.empty())
+		{
+			char decision = VALOR_PREDETERMINADO;
+			bool entradaValida = false;
+
+			while (!entradaValida)
 			{
-				std::cout << "\nExisten mensajes, quieres mantenerlos?";
-				std::cout << "\n[M] Mantener mensajes | [B] Borrar mensajes | [V] Volver al menu: ";
+				std::cout << "\nExisten mensajes previos. Quieres mantenerlos?";
+				std::cout << "\n[M] Mantener | [B] Borrar | [V] Volver: ";
 				std::cin >> decision;
 
 				if (decision == 'M' || decision == 'm')
 				{
-					std::cout << "\nCargando mensajes...";
-					leerLinea();
-					escribirLinea();
-					return;
+					std::cout << "\nManteniendo mensajes...";
+					entradaValida = true;
 				}
 				else if (decision == 'B' || decision == 'b')
 				{
-					std::cout << "\nBorrando mensajes...";
-					std::cout << "\nSe ha cargado el archivo limpio...";
-					escribirLinea();
+					std::cout << "\nBorrando historial...";
+					borrarArchivo();
+					historial.clear();
+					entradaValida = true;
+				}
+				else if (decision == 'V' || decision == 'v')
+				{
 					return;
 				}
 				else
 				{
-					std::cout << "\n\nEl caracter que ha introducido no es valido.";
-					system("cls");
+					std::cout << "\nOpcion no valida.";
 				}
 			}
 		}
+		else
+		{
+			std::cout << "\nNo se han encontrado mensajes previos. Preparando entorno...";
+			borrarArchivo();
+		}
+
+		escribirLinea();
 	}
 	else if (seleccion == 2)
 	{
 		std::cout << "\nBorrando mensajes...";
 		std::cout << "\nSe ha cargado el archivo limpio...";
 		borrarArchivo();
+		historial.clear();
 		escribirLinea();
 	}
 }
 
-void recuperarDatos()
+void recuperarDatos(std::vector<std::string> & historial)
 {
+	std::ifstream archivo("encriptado.txt");
+	std::string linea;
+	historial.clear();
 	char seleccionado = VALOR_PREDETERMINADO;
+	while (std::getline(archivo, linea))
+	{
+		if (linea.length() >= 3 && linea.substr(0, 3) != "---")
+		{
+			historial.push_back(linea);
+		}
+	}
+	archivo.close();
 }
 
 void leerLinea()

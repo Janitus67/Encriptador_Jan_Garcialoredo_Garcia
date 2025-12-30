@@ -6,7 +6,7 @@
 
 // --- FUNCIÓNES ---
 
-int Bienvenida(short seleccion)
+int Bienvenida(short seleccion, std::vector<std::string> & historial)
 {
 	do
 	{
@@ -16,7 +16,7 @@ int Bienvenida(short seleccion)
 
 		std::cout << "# - - - - - - - - - - - - - - - - - - - - - - #" << std::endl;
 		std::cout << "| 1. Entrar en el archivo.                    |" << std::endl;
-		std::cout << "| 2. Entrar al archivo borrando conversacion  |" << std::endl;
+		std::cout << "| 2. Entrar al archivo borrando mensajes      |" << std::endl;
 		std::cout << "| 3. Salir del programa.                      |" << std::endl;
 		std::cout << "# - - - - - - - - - - - - - - - - - - - - - - #" << std::endl;
 		std::cout << "Opcion: ";
@@ -30,17 +30,17 @@ int Bienvenida(short seleccion)
 				if (existeArchivo() == true)
 				{
 					std::cout << "\nSe abrira el archivo...\n";
-					abrirFichero(seleccion);
+					abrirArchivo(seleccion, historial);
 				}
 				else
 				{
 					std::cout << "\nEl archivo no se ha abierto porque no existe, se abrira uno nuevo...\n";
-					abrirFichero(2);
+					abrirArchivo(2, historial);
 				}
 				break;
 			case 2:
-				std::cout << "\nSe abrira el archivo borrando el contenido de la conversacion...\n";
-				abrirFichero(seleccion);
+				std::cout << "\nSe abrira el archivo borrando los mensajes...\n";
+				abrirArchivo(seleccion, historial);
 				break;
 			case 3:
 				std::cout << "\nSe va a cerrar el programa...\n";
