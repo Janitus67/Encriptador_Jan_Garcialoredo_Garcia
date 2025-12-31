@@ -24,7 +24,6 @@ void borrarArchivo()
 	{
 		archivo << "--- Numero Cifrado -------------------\n" << std::endl;
 		archivo << "--- Historial Mensajes Encriptados ---\n" << std::endl;
-		archivo << "--- Nuevos Mensajes ------------------\n" << std::endl;
 		archivo.close();
 	}
 	else
@@ -47,7 +46,7 @@ void abrirArchivo(char seleccion, std::vector<std::string> & historial)
 			char decision = VALOR_PREDETERMINADO;
 			bool entradaValida = false;
 
-			while (!entradaValida)
+			while (entradaValida != true)
 			{
 				std::cout << "\nExisten mensajes previos. Quieres mantenerlos?";
 				std::cout << "\n[M] Mantener | [B] Borrar | [V] Volver: ";
@@ -57,13 +56,17 @@ void abrirArchivo(char seleccion, std::vector<std::string> & historial)
 				{
 					std::cout << "\nManteniendo mensajes...";
 					entradaValida = true;
+					leerLinea(historial);
+					escribirLinea(historial);
 				}
 				else if (decision == 'B' || decision == 'b')
 				{
 					std::cout << "\nBorrando historial...";
+					entradaValida = true;
 					borrarArchivo();
 					historial.clear();
-					entradaValida = true;
+					leerLinea(historial);
+					escribirLinea(historial);
 				}
 				else if (decision == 'V' || decision == 'v')
 				{
@@ -77,19 +80,18 @@ void abrirArchivo(char seleccion, std::vector<std::string> & historial)
 		}
 		else
 		{
-			std::cout << "\nNo se han encontrado mensajes previos. Preparando entorno...";
-			borrarArchivo();
+			std::cout << "\nNo se han encontrado mensajes previos. Preparando archivo...";
+			//borrarArchivo();
+			escribirLinea(historial);
 		}
-
-		escribirLinea();
 	}
 	else if (seleccion == 2)
 	{
 		std::cout << "\nBorrando mensajes...";
-		std::cout << "\nSe ha cargado el archivo limpio...";
+		std::cout << "\nSe esta cargando el archivo...";
 		borrarArchivo();
 		historial.clear();
-		escribirLinea();
+		escribirLinea(historial);
 	}
 }
 
@@ -99,27 +101,87 @@ void recuperarDatos(std::vector<std::string> & historial)
 	std::string linea;
 	historial.clear();
 	char seleccionado = VALOR_PREDETERMINADO;
+	int numLinea = VALOR_PREDETERMINADO;
 	while (std::getline(archivo, linea))
 	{
-		if (linea.length() >= 3 && linea.substr(0, 3) != "---")
+		numLinea++;
+		if (numLinea == 1) {
+			generarCheckSum(historial);
+		}
+		else if (numLinea >= 3)
 		{
-			historial.push_back(linea);
+			if (linea.length() >= 3 && linea.substr(VALOR_PREDETERMINADO, 3) != "---")
+			{
+				historial.push_back(desencriptadoCesar(linea));
+			}
 		}
 	}
 	archivo.close();
 }
 
-void leerLinea()
+void leerLinea(std::vector<std::string> & historial)
 {
-	std::cout << "\n\nDentro de leerLinea\n";
+	std::cout << "\n\n--- Mensajes anteriores ---\n" << std::endl;
+	for (const std::string & mensaje : historial)
+	{
+		std::cout << "=> " << mensaje << std::endl;
+	}
+	std::cout << "\n\n--- Nuevos mensajes ---" << std::endl;
 }
 
-void escribirLinea()
+void escribirLinea(std::vector<std::string> & historial)
 {
-	std::cout << "\n\nDentro de escribirLinea\n";
+	std::string mensaje;
+	bool chatActivo = true;
+	std::cin.ignore();
+	std::cout << "\nEscribe tu mensaje o [/] para salir al menu o [exit] para guardar y encriptar el documento:\n";
+	while (chatActivo == true)
+	{
+		std::cout << "Mensaje => ";
+		std::getline(std::cin, mensaje);
+
+		if (mensaje == "/")
+		{
+			chatActivo = false;
+			system("cls");
+			short seleccion = VALOR_PREDETERMINADO;
+			guardarDatos(historial);
+			Bienvenida(seleccion, historial);
+		}
+		else if (mensaje == "exit" || mensaje == "EXIT")
+		{
+			guardarDatos(historial);
+			std::cout << "\nCerrando programa...\n\n";
+			return;
+		}
+		else if (!mensaje.empty())
+		{
+			historial.push_back(mensaje);
+		}
+	}
 }
 
-void guardarDatos()
+void guardarDatos(std::vector<std::string> & historial)
 {
-	std::cout << "\n\nDentro de guardarDatos\n";
+	std::ofstream archivo("encriptado.txt", std::ios::out | std::ios::trunc);
+	if (archivo.is_open())
+	{
+		std::cout << "Este es el numero de checksum generado para este guardado: ";
+
+		std::cout << generarCheckSum(historial);
+		archivo << generarCheckSum(historial) << "\n";
+
+		// Línea 3
+		archivo << "--- Historial Mensajes Encriptados ---\n";
+
+		// Línea 4 en adelante: Mensajes CIFRADOS
+		for (const std::string& mensaje : historial)
+		{
+			// Aquí es donde ocurre la magia del encriptador
+			archivo << encriptadoCesar(mensaje) << "\n";
+		}
+
+		archivo.close();
+		std::cout << "\nArchivo actualizado y encriptado." << std::endl;
+	}
 }

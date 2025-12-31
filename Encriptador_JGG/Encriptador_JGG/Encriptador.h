@@ -4,5 +4,7 @@
 #include <vector>
 #include <string>
 
-int encriptadoCesar();
-int calcularCheckSum();
+std::string encriptadoCesar(std::string mensaje);
+std::string desencriptadoCesar(std::string mensaje);
+void calcularCheckSum(std::vector<std::string> & historial);
+int generarCheckSum(std::vector<std::string> & historial);
