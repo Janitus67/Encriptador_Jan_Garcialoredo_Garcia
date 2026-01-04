@@ -48,13 +48,27 @@ std::string desencriptadoCesar(std::string mensaje)
 	return resultado;
 }
 
-void calcularCheckSum(std::vector<std::string>& historial)
-{
-	
+void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo) {
+	int valorCalculado = generarCheckSum(historial);
+
+	if (checksumArchivo == valorCalculado) {
+		std::cout << "\nChecksum verificado: Los datos estan intactos." << std::endl;
+		std::cout << "Se esperaba: " << checksumArchivo << " | Se ha calculado: " << valorCalculado << std::endl;
+	}
+	else {
+		std::cout << "\nChecksum verificado: Los datos han estado vulnerados." << std::endl;
+		std::cout << "Se esperaba: " << checksumArchivo << " | Se ha calculado: " << valorCalculado << std::endl;
+		std::cout << "El archivo podria haber sido manipulado." << std::endl;
+	}
 }
 
 int generarCheckSum(std::vector<std::string>& historial)
 {
 	int suma = 0;
+	for (const std::string& mensaje : historial) {
+		for (char c : mensaje) {
+			suma += (int)c;
+		}
+	}
 	return suma;
 }

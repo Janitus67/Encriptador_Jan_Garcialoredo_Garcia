@@ -95,28 +95,45 @@ void abrirArchivo(char seleccion, std::vector<std::string> & historial)
 	}
 }
 
-void recuperarDatos(std::vector<std::string> & historial)
+void recuperarDatos(std::vector<std::string>& historial)
 {
 	std::ifstream archivo("encriptado.txt");
 	std::string linea;
+	int numLinea = 0;
+	int checksumArchivo = 0;
+
 	historial.clear();
-	char seleccionado = VALOR_PREDETERMINADO;
-	int numLinea = VALOR_PREDETERMINADO;
+
 	while (std::getline(archivo, linea))
 	{
 		numLinea++;
-		if (numLinea == 1) {
-			generarCheckSum(historial);
-		}
-		else if (numLinea >= 3)
+
+		if (numLinea == 2) 
 		{
-			if (linea.length() >= 3 && linea.substr(VALOR_PREDETERMINADO, 3) != "---")
+			int valorExtraido = 0;
+			for (int i = 0; i < linea.length(); i++)
+			{
+				if (linea[i] >= '0' && linea[i] <= '9')
+				{
+					valorExtraido = (valorExtraido * 10) + (linea[i] - '0');
+				}
+			}
+			checksumArchivo = valorExtraido;
+		}
+		else if (numLinea >= 3) 
+		{
+			if (linea.length() >= 3 && linea.substr(0, 3) != "---") 
 			{
 				historial.push_back(desencriptadoCesar(linea));
 			}
 		}
 	}
 	archivo.close();
+
+	if (!historial.empty()) 
+	{
+		calcularCheckSum(historial, checksumArchivo);
+	}
 }
 
 void leerLinea(std::vector<std::string> & historial)
@@ -166,7 +183,9 @@ void guardarDatos(std::vector<std::string> & historial)
 	std::ofstream archivo("encriptado.txt", std::ios::out | std::ios::trunc);
 	if (archivo.is_open())
 	{
+		int checksumActual = generarCheckSum(historial);
 		std::cout << "Este es el numero de checksum generado para este guardado: ";
+		archivo << checksumActual << "\n";
 
 		std::cout << generarCheckSum(historial);
 		archivo << generarCheckSum(historial) << "\n";
