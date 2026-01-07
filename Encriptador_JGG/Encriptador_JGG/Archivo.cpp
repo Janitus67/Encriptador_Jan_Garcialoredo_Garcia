@@ -61,7 +61,7 @@ bool abrirArchivo(char seleccion, std::vector<std::string> & historial)
 				std::cin.ignore();
 				std::cin >> decision_string;
 
-				if ((decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'm') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'M') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'b') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO == 'B') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'v') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'V'))
+				if ((decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'm') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'M') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'b') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'B') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'v') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'V'))
 				{
 					decision = decision_string[VALOR_PREDETERMINADO];
 				}
