@@ -7,9 +7,11 @@
 
 // --- FUNCIÓNES ---
 
+//Encripta letra a letra cada palabra en el documento menos los prefijos y checksum para lectura facil
 std::string encriptadoCesar(std::string mensaje)
 {
 	std::string resultado = mensaje;
+	//Excepciones de a - z y z - a y transformacion de cesar normal (Todo en bocabulario ingles)
 	for (int i = 0; i < resultado.length(); i++)
 	{
 		if (resultado[i] == 90)
@@ -30,6 +32,7 @@ std::string encriptadoCesar(std::string mensaje)
 std::string desencriptadoCesar(std::string mensaje)
 {
 	std::string resultado = mensaje;
+	//Hace lo mismo que el encriptado pero al reves, desencripta, z - a y a - z
 	for (int i = 0; i < resultado.length(); i++)
 	{
 		if (resultado[i] == 65)
@@ -48,15 +51,19 @@ std::string desencriptadoCesar(std::string mensaje)
 	return resultado;
 }
 
-void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo) {
+void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo)
+{
 	int valorCalculado = generarCheckSum(historial);
 
-	if (checksumArchivo == valorCalculado) {
-		std::cout << "\nChecksum verificado: Los datos estan intactos." << std::endl;
+	if (checksumArchivo == valorCalculado)
+	{//Calculo satisfactorio del checksum
+		std::cout << "\n[CHECKSUM VERIFICADO]: Los datos estan intactos." << std::endl;
 		std::cout << "Se esperaba: " << checksumArchivo << " | Se ha calculado: " << valorCalculado << std::endl;
 	}
-	else {
-		std::cout << "\nChecksum verificado: Los datos han estado vulnerados." << std::endl;
+	else
+	{
+		//En caso de que los checksums no coincidan se dira y ofrecera que quiere hacer el usuario
+		std::cout << "\n[CHECKSUM VERIFICADO]: ALERTA, los datos han estado vulnerados!!!" << std::endl;
 		std::cout << "Se esperaba: " << checksumArchivo << " | Se ha calculado: " << valorCalculado << std::endl;
 		std::cout << "El archivo podria haber sido manipulado." << std::endl;
 	}
@@ -64,9 +71,12 @@ void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo) 
 
 int generarCheckSum(std::vector<std::string>& historial)
 {
+	//Generacion del checksum calculado letra a letra
 	int suma = 0;
-	for (const std::string& mensaje : historial) {
-		for (char c : mensaje) {
+	for (const std::string& mensaje : historial)
+	{
+		for (char c : mensaje)
+		{
 			suma += (int)c;
 		}
 	}

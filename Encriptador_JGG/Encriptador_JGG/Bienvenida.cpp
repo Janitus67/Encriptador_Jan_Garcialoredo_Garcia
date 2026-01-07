@@ -41,46 +41,47 @@ void Bienvenida(short seleccion, std::vector<std::string> & historial)
 			switch (seleccion)
 			{
 			case 1:
-				if (existeArchivo() == true)
+				if (existeArchivo())
 				{
-					// Si abrirArchivo devuelve true
-					if (abrirArchivo(seleccion, historial))
+					bool cerrarTodo = abrirArchivo(1, historial);
+					if (cerrarTodo)
 					{
 						seleccion = 3;
+						// Solo si es true cerramos
 					}
 					else
 					{
 						seleccion = VALOR_PREDETERMINADO;
+						// Si es false vuelvo
+						system("cls");
 					}
-					/*std::cout << "\nSe abrira el archivo...\n";
-					//Apertura del documento
-					abrirArchivo(seleccion, historial);
-					seleccion = VALOR_PREDETERMINADO;
-					if (abrirArchivo(seleccion, historial) == true)
-					{
-						seleccion = 3;
-					}*/
 				}
 				else
 				{
-					std::cout << "\nEl archivo no se ha abierto porque no existe, se abrira uno nuevo...\n";
-					//Creacion del documento
+					std::cout << "\nEl archivo no existe, se abrira uno nuevo...\n";
 					if (abrirArchivo(2, historial))
 					{	
 						seleccion = 3;
 					}
 					else
 					{
-						abrirArchivo(seleccion, historial);
 						seleccion = VALOR_PREDETERMINADO;
+						system("cls");
 					}
 				}
 				break;
 			case 2:
+				historial.clear();
 				std::cout << "\nSe abrira el archivo borrando los mensajes...\n";
-				//Borrado de archivos borrando datos
-				abrirArchivo(seleccion, historial);
-				seleccion = VALOR_PREDETERMINADO;
+				if (abrirArchivo(2, historial)) 
+				{
+					seleccion = 3;
+				}
+				else
+				{
+					seleccion = VALOR_PREDETERMINADO;
+					system("cls");
+				}
 				break;
 			case 3:
 				std::cout << "\nSe va a cerrar el programa...\n";
