@@ -25,13 +25,13 @@ void Bienvenida(short seleccion, std::vector<std::string> & historial)
 		std::cout << "Opcion: ";
 		std::cin >> entrada;
 
-		if (entrada.length() == 1 && entrada[0] >= '1' && entrada[0] <= '3')
+		if (entrada.length() == 1 && entrada[VALOR_PREDETERMINADO] >= '1' && entrada[VALOR_PREDETERMINADO] <= '3')
 		{
-			seleccion = entrada[0] - '0';
+			seleccion = entrada[VALOR_PREDETERMINADO] - '0';
 		}
 		else
 		{
-			seleccion = 0;
+			seleccion = VALOR_PREDETERMINADO;
 			//Como el valor que ha introducido no es valido vuelve a preguntar
 		}
 

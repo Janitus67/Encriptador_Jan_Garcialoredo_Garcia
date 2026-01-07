@@ -12,7 +12,7 @@ std::string encriptadoCesar(std::string mensaje)
 {
 	std::string resultado = mensaje;
 	//Excepciones de a - z y z - a y transformacion de cesar normal (Todo en bocabulario ingles)
-	for (int i = 0; i < resultado.length(); i++)
+	for (short i = 0; i < resultado.length(); i++)
 	{
 		if (resultado[i] == 90)
 		{
@@ -33,7 +33,7 @@ std::string desencriptadoCesar(std::string mensaje)
 {
 	std::string resultado = mensaje;
 	//Hace lo mismo que el encriptado pero al reves, desencripta, z - a y a - z
-	for (int i = 0; i < resultado.length(); i++)
+	for (short i = 0; i < resultado.length(); i++)
 	{
 		if (resultado[i] == 65)
 		{
@@ -51,9 +51,9 @@ std::string desencriptadoCesar(std::string mensaje)
 	return resultado;
 }
 
-void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo)
+void calcularCheckSum(std::vector<std::string>& historial, short checksumArchivo)
 {
-	int valorCalculado = generarCheckSum(historial);
+	short valorCalculado = generarCheckSum(historial);
 
 	if (checksumArchivo == valorCalculado)
 	{//Calculo satisfactorio del checksum
@@ -72,12 +72,12 @@ void calcularCheckSum(std::vector<std::string>& historial, int checksumArchivo)
 int generarCheckSum(std::vector<std::string>& historial)
 {
 	//Generacion del checksum calculado letra a letra
-	int suma = 0;
+	short suma = 0;
 	for (const std::string& mensaje : historial)
 	{
 		for (char c : mensaje)
 		{
-			suma += (int)c;
+			suma += (short)c;
 		}
 	}
 	return suma;

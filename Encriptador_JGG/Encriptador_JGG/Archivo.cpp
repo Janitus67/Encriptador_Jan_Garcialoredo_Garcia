@@ -61,9 +61,9 @@ bool abrirArchivo(char seleccion, std::vector<std::string> & historial)
 				std::cin.ignore();
 				std::cin >> decision_string;
 
-				if ((decision_string.length() == 1 && decision_string[0] == 'm') || (decision_string.length() == 1 && decision_string[0] == 'M') || (decision_string.length() == 1 && decision_string[0] == 'b') || (decision_string.length() == 1 && decision_string[0] == 'B') || (decision_string.length() == 1 && decision_string[0] == 'v') || (decision_string.length() == 1 && decision_string[0] == 'V'))
+				if ((decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'm') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'M') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'b') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO == 'B') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'v') || (decision_string.length() == 1 && decision_string[VALOR_PREDETERMINADO] == 'V'))
 				{
-					decision = decision_string[0];
+					decision = decision_string[VALOR_PREDETERMINADO];
 				}
 				else
 				{
@@ -129,8 +129,8 @@ void recuperarDatos(std::vector<std::string>& historial)
 {
 	std::ifstream archivo("encriptado.txt");
 	std::string linea;
-	int numLinea = 0;
-	int checksumArchivo = 0;
+	int numLinea = VALOR_PREDETERMINADO;
+	int checksumArchivo = VALOR_PREDETERMINADO;
 
 	historial.clear();
 
@@ -141,8 +141,8 @@ void recuperarDatos(std::vector<std::string>& historial)
 
 		if (numLinea == 1) 
 		{
-			int valorExtraido = 0;
-			for (int i = 0; i < linea.length(); i++)
+			short valorExtraido = VALOR_PREDETERMINADO;
+			for (short i = VALOR_PREDETERMINADO; i < linea.length(); i++)
 			{
 				if (linea[i] >= '0')
 				{
@@ -155,7 +155,7 @@ void recuperarDatos(std::vector<std::string>& historial)
 		else if (numLinea >= 3) 
 		{
 			//Supresion de leido de mensajeria que empieze por el prefijo
-			if (linea.substr(0, 3) != PREFIJO) 
+			if (linea.substr(VALOR_PREDETERMINADO, 3) != PREFIJO) 
 			{
 				historial.push_back(desencriptadoCesar(linea));
 			}

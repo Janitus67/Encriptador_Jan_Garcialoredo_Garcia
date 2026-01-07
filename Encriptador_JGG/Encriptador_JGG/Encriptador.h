@@ -6,5 +6,5 @@
 
 std::string encriptadoCesar(std::string mensaje);
 std::string desencriptadoCesar(std::string mensaje);
-void calcularCheckSum(std::vector<std::string> & historial, int checksumArchivo);
+void calcularCheckSum(std::vector<std::string> & historial, short checksumArchivo);
 int generarCheckSum(std::vector<std::string> & historial);
