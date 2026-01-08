@@ -22,6 +22,14 @@ std::string encriptadoCesar(std::string mensaje)
 		{
 			resultado[i] = 97;
 		}
+		else if (resultado[i] == 32)
+		{
+			resultado[i] = resultado[i];
+		}
+		else if (resultado[i] == 57)
+		{
+			resultado[i] = 48;
+		}
 		else
 		{
 			resultado[i] = resultado[i] + 1;
@@ -42,6 +50,14 @@ std::string desencriptadoCesar(std::string mensaje)
 		else if (resultado[i] == 97)
 		{
 			resultado[i] = 122;
+		}
+		else if (resultado[i] == 32)
+		{
+			resultado[i] = resultado[i];
+		}
+		else if (resultado[i] == 48)
+		{
+			resultado[i] = 57;
 		}
 		else
 		{
