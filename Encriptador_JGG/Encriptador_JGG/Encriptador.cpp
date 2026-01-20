@@ -4,6 +4,13 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#define Z 90
+#define A 65 
+#define z 122
+#define a 97
+#define ESPACIO 32
+#define NUEVE 57
+#define CERO 48
 
 // --- FUNCIÓNES ---
 
@@ -14,13 +21,21 @@ std::string encriptadoCesar(std::string mensaje)
 	//Excepciones de a - z y z - a y transformacion de cesar normal (Todo en bocabulario ingles)
 	for (short i = 0; i < resultado.length(); i++)
 	{
-		if (resultado[i] == 90)
+		if (resultado[i] == Z)
 		{
-			resultado[i] = 65;
+			resultado[i] = A;
 		}
-		else if (resultado[i] == 122)
+		else if (resultado[i] == z)
 		{
-			resultado[i] = 97;
+			resultado[i] = a;
+		}
+		else if (resultado[i] == ESPACIO)
+		{
+			resultado[i] = resultado[i];
+		}
+		else if (resultado[i] == NUEVE)
+		{
+			resultado[i] = CERO;
 		}
 		else if (resultado[i] == 32)
 		{
@@ -43,13 +58,21 @@ std::string desencriptadoCesar(std::string mensaje)
 	//Hace lo mismo que el encriptado pero al reves, desencripta, z - a y a - z
 	for (short i = 0; i < resultado.length(); i++)
 	{
-		if (resultado[i] == 65)
+		if (resultado[i] == A)
 		{
-			resultado[i] = 90;
+			resultado[i] = Z;
 		}
-		else if (resultado[i] == 97)
+		else if (resultado[i] == a)
 		{
-			resultado[i] = 122;
+			resultado[i] = z;
+		}
+		else if (resultado[i] == ESPACIO)
+		{
+			resultado[i] = resultado[i];
+		}
+		else if (resultado[i] == CERO)
+		{
+			resultado[i] = NUEVE;
 		}
 		else if (resultado[i] == 32)
 		{

@@ -8,6 +8,8 @@
 #include "Archivo.h"
 #include "Encriptador.h"
 
+#define COMIENZA_LINEA_LECTURA 3
+
 // --- FUNCIÓNES ---
 
 bool existeArchivo()
@@ -36,7 +38,7 @@ void borrarArchivo()
 	}
 }
 
-bool abrirArchivo(char seleccion, std::vector<std::string> & historial)
+bool abrirArchivo(char seleccion, std::vector<std::string>& historial)
 {
 	system("cls");
 	if (seleccion == 1)
@@ -139,7 +141,7 @@ void recuperarDatos(std::vector<std::string>& historial)
 		//Printeado de mensajes anteriores en terminal sin encriptar
 		numLinea++;
 
-		if (numLinea == 1) 
+		if (numLinea == 1)
 		{
 			short valorExtraido = VALOR_PREDETERMINADO;
 			for (short i = VALOR_PREDETERMINADO; i < linea.length(); i++)
@@ -152,10 +154,10 @@ void recuperarDatos(std::vector<std::string>& historial)
 			//Valoracion de la integridad del archivo mediante checksum y valor extraido del archivo
 			checksumArchivo = valorExtraido;
 		}
-		else if (numLinea >= 3) 
+		else if (numLinea >= COMIENZA_LINEA_LECTURA)
 		{
 			//Supresion de leido de mensajeria que empieze por el prefijo
-			if (linea.substr(VALOR_PREDETERMINADO, 3) != PREFIJO) 
+			if (linea.substr(VALOR_PREDETERMINADO, COMIENZA_LINEA_LECTURA) != PREFIJO)
 			{
 				historial.push_back(desencriptadoCesar(linea));
 			}
@@ -163,18 +165,18 @@ void recuperarDatos(std::vector<std::string>& historial)
 	}
 	archivo.close();
 
-	if (!historial.empty()) 
+	if (!historial.empty())
 	{
 		//Si no existe nada calcula un nuevo checksum
 		calcularCheckSum(historial, checksumArchivo);
 	}
 }
 
-void leerLinea(std::vector<std::string> & historial)
+void leerLinea(std::vector<std::string>& historial)
 {
 	//Empieza la lectura de datos guardados
 	std::cout << "\n\n--- Mensajes anteriores ---\n" << std::endl;
-	for (const std::string & mensaje : historial)
+	for (const std::string& mensaje : historial)
 	{
 		//Leera todos los mensajes guardados en el archivo y los desencriptara
 		std::cout << "=> " << mensaje << std::endl;
@@ -183,7 +185,7 @@ void leerLinea(std::vector<std::string> & historial)
 	//Empiezan los mensajes que quiera escribir
 }
 
-bool escribirLinea(std::vector<std::string> & historial)
+bool escribirLinea(std::vector<std::string>& historial)
 {
 	//Escribe algo para que te mande hacia cualquier lado
 	std::string mensaje;
@@ -219,7 +221,7 @@ bool escribirLinea(std::vector<std::string> & historial)
 	}
 }
 
-void guardarDatos(std::vector<std::string> & historial)
+void guardarDatos(std::vector<std::string>& historial)
 {
 	//Guardado de datos y posterior generacion de checksum
 	std::ofstream archivo("encriptado.txt", std::ios::out | std::ios::trunc);
