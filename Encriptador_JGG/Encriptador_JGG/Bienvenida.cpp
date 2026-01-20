@@ -6,7 +6,7 @@
 
 // --- FUNCIÓNES ---
 
-void Bienvenida(short seleccion, std::vector<std::string> & historial)
+void Bienvenida(short seleccion, std::vector<std::string>& historial)
 {
 	std::string entrada;
 	seleccion = VALOR_PREDETERMINADO;
@@ -25,13 +25,13 @@ void Bienvenida(short seleccion, std::vector<std::string> & historial)
 		std::cout << "Opcion: ";
 		std::cin >> entrada;
 
-		if (entrada.length() == 1 && entrada[0] >= '1' && entrada[0] <= '3')
+		if (entrada.length() == 1 && entrada[VALOR_PREDETERMINADO] >= '1' && entrada[VALOR_PREDETERMINADO] <= '3')
 		{
-			seleccion = entrada[0] - '0';
+			seleccion = entrada[VALOR_PREDETERMINADO] - '0';
 		}
 		else
 		{
-			seleccion = 0;
+			seleccion = VALOR_PREDETERMINADO;
 			//Como el valor que ha introducido no es valido vuelve a preguntar
 		}
 
@@ -60,7 +60,7 @@ void Bienvenida(short seleccion, std::vector<std::string> & historial)
 				{
 					std::cout << "\nEl archivo no existe, se abrira uno nuevo...\n";
 					if (abrirArchivo(2, historial))
-					{	
+					{
 						seleccion = 3;
 					}
 					else
@@ -73,7 +73,7 @@ void Bienvenida(short seleccion, std::vector<std::string> & historial)
 			case 2:
 				historial.clear();
 				std::cout << "\nSe abrira el archivo borrando los mensajes...\n";
-				if (abrirArchivo(2, historial)) 
+				if (abrirArchivo(2, historial))
 				{
 					seleccion = 3;
 				}
